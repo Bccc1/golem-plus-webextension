@@ -70,6 +70,7 @@ for(var i=0; i < liItems.length; i++) {
   toParentBtn.innerHTML="▲";
   toParentBtn.href="javascript:void(0);";
   toParentBtn.onclick=jumpToParent;
+  toParentBtn.classList.add("link-class");
   links.appendChild(toParentBtn);
 
 //   var cs = window.getComputedStyle(liItems[i],null);
@@ -113,6 +114,7 @@ for(var i=0; i < liItems.length; i++) {
   // add styleclass for .post-hover-class
   insertCss('li .post-hover-class { visibility:hidden; }');
   insertCss('li:hover .post-hover-class { visibility:visible; }');
+  insertCss('.link-class:hover { text-decoration: none; }');
 
 
 function insertCss( code ) {
