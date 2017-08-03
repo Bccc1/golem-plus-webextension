@@ -1,0 +1,24 @@
+﻿{
+  "applications": {
+    "gecko": {
+      "id": "golem-plus@druppelt.de",
+	  "strict_min_version": "42.0"
+    }
+  },
+
+  "description": "Improves the golem.de forum / comment section visually and adds shortcuts",
+  "manifest_version": 2,
+  "name": "Golem.de+",
+  "version": "1.0",
+  "icons": {
+    "48": "icons/golem-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://forum.golem.de/*"],
+      "js": ["forum-shortcuts.js", "forum-style.js"]
+    }
+  ]
+
+}
