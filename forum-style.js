@@ -55,9 +55,16 @@ for(var i=0; i < liItems.length; i++) {
     liItems[i].style.borderLeftColor=colorLookup[colorLookupIndex];
   }
 
-  // hide buttons
-  var links = liItems[i].getElementsByClassName("links")[0];
-  links.classList.add("post-hover-class");
+  // move links to actionBar, which is only visible on :hover
+  var links = liItems[i].getElementsByClassName("links")[0];  
+  var actionBar = document.createElement("div");
+  actionBar.innerHTML=links.innerHTML;
+  actionBar.classList.add("links");
+  actionBar.classList.add("post-hover-class");
+  actionBar.style.cssText=liItems[i].style.cssText;
+  actionBar.style.backgroundColor="rgb(255, 249, 214)";
+  insertAfter(actionBar, liItems[i]);
+  links.parentNode.removeChild(links);
 
 
   /*
@@ -65,13 +72,13 @@ for(var i=0; i < liItems.length; i++) {
   */
 
   //jump to parent
-  links.innerHTML=links.innerHTML+"|"; //spacer
+  actionBar.innerHTML=actionBar.innerHTML+"|"; //spacer
   var toParentBtn = document.createElement("a");
   toParentBtn.innerHTML="▲";
   toParentBtn.href="javascript:void(0);";
   toParentBtn.onclick=jumpToParent;
   toParentBtn.classList.add("link-class");
-  links.appendChild(toParentBtn);
+  actionBar.appendChild(toParentBtn);
 
 //   var cs = window.getComputedStyle(liItems[i],null);
 //
@@ -112,8 +119,10 @@ for(var i=0; i < liItems.length; i++) {
 
 
   // add styleclass for .post-hover-class
-  insertCss('li .post-hover-class { visibility:hidden; }');
-  insertCss('li:hover .post-hover-class { visibility:visible; }');
+  insertCss('.post-hover-class { display: none; }');
+  insertCss('.post-hover-class a { color: rgb(76, 76, 76); }');
+  insertCss('li:hover + .post-hover-class { display: block; padding: 10px 20px; }');
+  insertCss('.post-hover-class:hover { display: block; padding: 10px 20px; }');
   insertCss('.link-class:hover { text-decoration: none; }');
 
 
@@ -130,6 +139,10 @@ function insertCss( code ) {
     }
 
     document.getElementsByTagName("head")[0].appendChild( style );
+}
+
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 function jumpToParent(){
