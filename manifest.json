@@ -17,7 +17,7 @@
   "content_scripts": [
     {
       "matches": ["*://forum.golem.de/*"],
-      "js": ["golemde-forum.js"]
+      "js": ["golemde-forum.user.js"]
     }
   ]
 
