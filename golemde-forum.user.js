@@ -2,6 +2,7 @@
 // @name     Golem.de Forum+
 // @author Bccc1
 // @version  1
+// @license MIT
 // @grant    none
 // @match    https://forum.golem.de/kommentare/*read.html*
 // @match    https://forum.golem.de/read.php?*
