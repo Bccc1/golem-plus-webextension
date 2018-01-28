@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name     Golem.de Forum+
+// @author Bccc1
 // @version  1
 // @grant    none
 // @match    https://forum.golem.de/kommentare/*read.html*
