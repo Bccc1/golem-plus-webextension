@@ -17,3 +17,6 @@ A flaw of the indented view of the golem.de forum is that posts with a depth of 
 - Add a search button to the navigation to show own posts.
 - Add inline answer options similar to reddit
 - Add quote-reflow to custom answer box
+
+## Bugs
+- Shortcuts are still active when typing (answer/quote feature)
