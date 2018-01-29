@@ -11,4 +11,4 @@ A flaw of the indented view of the golem.de forum is that posts with a depth of 
 - Detect Ads between comments. ATM with an adblocker there are blank gaps.
 - Highlight name of OP
 - Hightligh own name (thx Hotohori)
-- 
+- Add a search button to the navigation to show own posts.
