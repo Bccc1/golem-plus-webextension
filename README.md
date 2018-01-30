@@ -10,6 +10,8 @@ A flaw of the indented view of the golem.de forum is that posts with a depth of 
 
 
 ## ToDo
+This section is my ToDo list. If you're currently paying attention to these words, you're probably not me and you should stop reading. Seriously, it's just a boring todo list.
+### Forum
 - div.golem-forum_flattr > div.social-bar is too big. At least remove the style margin-bottom:1em from golem-forum_flattr. Or move flattr to the action bar.
 - Detect Ads between comments. ATM with an adblocker there are blank gaps.
 - Highlight name of OP
@@ -17,6 +19,8 @@ A flaw of the indented view of the golem.de forum is that posts with a depth of 
 - Add a search button to the navigation to show own posts.
 - Add inline answer options similar to reddit
 - Add quote-reflow to custom answer box
+### Article
+- Make article image clickable and change link to bigger picture. (thumb is div.screen > div.g > figure.gasideimg > img  https://www.golem.de/1801/sp_132385-152538-i_rc.jpg, large is https://www.golem.de/1801/132385-152538-i_rc.jpg)
 
 ## Bugs
 - Shortcuts are still active when typing (answer/quote feature)
