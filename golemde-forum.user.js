@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name     Golem.de Forum+
 // @author Bccc1
-// @version  1
+// @version  1.0.0
 // @license MIT
 // @homepageURL https://github.com/Bccc1/golem-plus-webextension
 // @supportURL https://github.com/Bccc1/golem-plus-webextension/issues
@@ -171,12 +171,22 @@ if(correctViewmode){
   //Shortcut Section
   if (document.addEventListener ){
     document.addEventListener('keydown', function(e) {
+    // only bind event to text-accepting elements, if they have been explicitly selected
+    if ( this !== e.target &&
+        ( /textarea|select/i.test( e.target.nodeName ) || e.target.type === "text") ) {
+        return;
+    }
       if (e.which == 74) jumpToNext();
     });
   }
 
   if (document.addEventListener ){
     document.addEventListener('keydown', function(e) {
+      // only bind event to text-accepting elements, if they have been explicitly selected
+      if ( this !== e.target &&
+          ( /textarea|select/i.test( e.target.nodeName ) || e.target.type === "text") ) {
+          return;
+      }
       if (e.which == 75) jumpToPrevious();
     });
   }
