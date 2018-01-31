@@ -20,7 +20,7 @@ This section is my ToDo list. If you're currently paying attention to these word
 - Add inline answer options similar to reddit
 - Add quote-reflow to custom answer box
 ### Article
-- Make article image clickable and change link to bigger picture. (thumb is div.screen > div.g > figure.gasideimg > img  https://www.golem.de/1801/sp_132385-152538-i_rc.jpg, large is https://www.golem.de/1801/132385-152538-i_rc.jpg)
+- Show article image in a lightbox or use golems fullscreen mode used in picture galleries
 
 ## Bugs
 - Shortcuts are still active when typing (answer/quote feature)
