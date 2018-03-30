@@ -133,7 +133,6 @@ colorLookup[1] = "#54ff00";
 colorLookup[2] = "#ffc300";
 colorLookup[3] = "#ff0000";
 colorLookup[4] = "#c700ff";
-// loop through 1 to 5 / second to last
 
 
 
@@ -166,6 +165,7 @@ if(correctViewmode){
   }else {
    applyDepthAndAddActionBar();
    insertActionBarStyles();
+   processQuotes();
   }
 
 
@@ -251,6 +251,67 @@ function insertActionBarStyles(){
 }
 
 
+function processQuotes(){
+  insertCss("blockquote { background: #f9f9f9; border-left: 5px solid #ccc; margin: 0.5em 0px; padding: 0px 10px; font-family:'Droid Sans',arial,sans-serif;}");
+  insertCss("blockquote author{ display: block;  font-weight:700;  color: #aaa; font-size: 12px; }");
+  insertCss("blockquote author:hover{ color: #222; }");
+  //TODO delete following 2 lines
+  //var threadDetail = document.getElementById("thread-detail");
+  //var liItems = threadDetail.querySelectorAll("div#thread-detail > ol > li[data-user-id]");
+  for(var i=0; i < liItems.length; i++) {
+    var quotes = liItems[i].querySelectorAll("span.GolemPhorumMessageQuote");
+
+    for(var j=0; j < quotes.length; j++) {
+      var q = quotes[j];
+      var author;
+      var tmp = q;
+      var authorPos=0;
+      for(authorPos=0; authorPos<7;authorPos++){
+        if(tmp.previousSibling){
+          tmp = tmp.previousSibling;
+          if(tmp.textContent.search("schrieb:") != -1){
+                break;
+            }
+        }
+      }
+      if(tmp && tmp.textContent.search("schrieb:") != -1){
+          console.log("authorPos is "+authorPos);
+
+          for(var k=0;k<authorPos;k++){
+              q.previousSibling.parentNode.removeChild(q.previousSibling);
+          }
+          author = document.createElement("author");
+          author.textContent = q.previousSibling.textContent;
+          q.previousSibling.parentNode.removeChild(q.previousSibling);
+
+      }
+
+      //change span to quote
+      var bq = document.createElement("blockquote");
+      bq.innerHTML = q.innerHTML;
+
+      for(var k=0; k<bq.childNodes.length; k++){
+          if(bq.childNodes[k].nodeType == Node.TEXT_NODE){
+              var line = bq.childNodes[k];
+              if(line.textContent.indexOf("> ") == 0){
+                line.textContent = line.textContent.slice(2,line.textContent.length);
+              }else{
+                if(line.textContent == ">"){
+                  line.textContent = "";
+                }else {
+                  console.log("line should start with '>', but is: "+line.textContent);
+                }
+              }
+          }
+      }
+
+      if(author) bq.insertAdjacentElement('afterbegin', author);
+      author = null;
+      q.parentNode.replaceChild(bq, q);
+    }
+  }
+}
+
 
 /**
 view is a number indicating the viewmode, with 1=thread view, 2=just the posts, 3=the posts indendented.
@@ -329,6 +390,7 @@ function requestDepthsFromThreadViewListener () {
 
   applyDepthAndAddActionBar();
   insertActionBarStyles();
+  processQuotes();
 }
 
 

@@ -18,3 +18,24 @@ This installs all dependencies.
 To build the userscript, execute 'node fuse dist'. It will create a 'golemde-forum.user.js' in 'golemde-forum\dist'.
 
 As I'm using this project to learn all this js stuff and never used node/npm/fusebox before, the config may be wierd, but I'm open for improvement suggestions ;)
+
+
+
+## inline answer:
+
+https://forum.golem.de/kommentare/handy/bluetooth-ohrstoepsel-im-vergleichstest-apples-airpods-lassen-hoeren-und-staunen/nicht-nachvollziehbar/116816,5060504,5060504,read.html#msg-5060504
+
+
+
+https://forum.golem.de/read.php?116816,5060504,5060504#REPLY_SHOWEDITOR
+
+
+div#mod_hide_reply_editor
+
+
+schnell antwort -> edit feld klappt aus.
+post verfassen.
+Post klicken
+im hintergrund wird die url vom antworten knopf geladen, form#post-form gesucht, text in div#post-body > fieldset > span.inputTextarea > textarea#body  eingefügt, input#post-finish "geklickt".
+
+Dann wird das erstellte Posting in das DOM gepackt ohne die Seite neu zu laden. Optional wird das Ergebnis des post ausgewertet und im fehlerfall angezeigt.
