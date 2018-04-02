@@ -27,35 +27,44 @@ LOG('is logged in: '+isLoggedIn);
  * Otherwise just display a info that this userscript requires indented view.
  */
 var correctViewmode = true;
+var firstLi = document.querySelector('div#thread-detail ol li');
+if(firstLi && firstLi.style.paddingLeft){
+  correctViewmode = true;
+}else {
+  correctViewmode = false;
+  LOG('change view');
+  addChangeViewModeButton(getSwitchViewURL(3));
+}
 
 
-var preThreadLinks = document.querySelectorAll('p#pre-thread > a');
-if(preThreadLinks){
+/**
+ * This function builds a switch view URL based on the 'Ansicht wechseln' link.
+ * @param {number} view the view to switch to. If not logged in it's internally converted to anon read view values.
+ */
+function getSwitchViewURL(view){
+  var preThreadLinks = document.querySelectorAll('p#pre-thread > a');
   var changeViewModeLink;
-  for(var i=0; i<preThreadLinks.length; i++){
-    if(preThreadLinks[i].textContent == 'Ansicht wechseln'){
-      changeViewModeLink = preThreadLinks[i];
-      break;
+  if(preThreadLinks){
+    for(var i=0; i<preThreadLinks.length; i++){
+      if(preThreadLinks[i].textContent == 'Ansicht wechseln'){
+        changeViewModeLink = preThreadLinks[i];
+        break;
+      }
     }
+  }else{
+    throw "couldn't find 'p#pre-thread > a'";
   }
+
   if(changeViewModeLink){
-    //wir sind nur im richtigen, wenn in div#thread-detail ol li der style padding-left gesetzt ist
-    var firstLi = document.querySelector('div#thread-detail ol li');
-    if(firstLi && firstLi.style.paddingLeft){
-      correctViewmode = true;
-    }else {
-      LOG('change view');
-      //change view
-      correctViewmode = false;
-      var correctChangeViewModeLink = '';
-      correctChangeViewModeLink += changeViewModeLink.href.slice(0,changeViewModeLink.href.lastIndexOf('#')-1);
-      correctChangeViewModeLink += isLoggedIn ? '3' : '2'; //logged in and anonymous access use different numbers for the same view modes
-      correctChangeViewModeLink += changeViewModeLink.href.slice(changeViewModeLink.href.lastIndexOf('#'), changeViewModeLink.href.length);
-      addChangeViewModeButton(correctChangeViewModeLink);
-    }
+    var correctChangeViewModeLink = '';
+    correctChangeViewModeLink += changeViewModeLink.href.slice(0,changeViewModeLink.href.lastIndexOf('#')-1);
+    correctChangeViewModeLink += isLoggedIn ? view : getSwitchViewValueAsAnonRead(view); //logged in and anonymous access use different numbers for the same view modes
+    correctChangeViewModeLink += changeViewModeLink.href.slice(changeViewModeLink.href.lastIndexOf('#'), changeViewModeLink.href.length);
+    return correctChangeViewModeLink;
+  }else{
+    throw "The 'Ansicht wechseln' Link couldn't be found or was empty";
   }
 }
-LOG('correct Viewmode: '+correctViewmode);
 
 function addChangeViewModeButton(link){
   LOG('called addChangeViewModeButton ');
@@ -228,32 +237,8 @@ function applyDepthAndAddActionBar(){
  * @param {*} listener The listener is an optional callback that is called, once the page loaded.
  * The page content can be accessed in the listener with this.responseXML
  */
-function requestThreadAsView(view,listener){
-
-  //TODO this functionality sucks -.- it seems you can access the anon read pages as logged in user. in those cases, this won't work.
-
-  var requestURL = '';
-  var url = window.location.href;
-  if(url.indexOf('read.php') != -1){
-    //we are already in switchview mode. only need to change the number
-    if(isLoggedIn){
-      requestURL = url.slice(0,url.indexOf('sv=')+3) + view + url.slice(url.indexOf('sv=')+4,url.length);
-    }else{
-      requestURL = url.slice(0,url.indexOf('anonymous_threaded_read=')+24) + view + url.slice(url.indexOf('anonymous_threaded_read=')+25,url.length);
-    }
-  }else{
-    //we need to build a new url to switch the view
-    var appendix = url.slice(url.lastIndexOf('/')+1,url.length);
-    if(isLoggedIn){
-      appendix = appendix.replace('read.html', 'sv='+view);
-    }else {
-      view = getSwitchViewValueAsAnonRead(view);
-      appendix = appendix.replace('read.html', 'anonymous_threaded_read='+view);
-    }
-    requestURL = 'https://forum.golem.de/read.php?'+appendix;
-  }
-
-
+function requestThreadAsView(view, listener){
+  var requestURL = getSwitchViewURL(view);
   var oReq = new XMLHttpRequest();
   if(listener){
     oReq.addEventListener('load', listener);
