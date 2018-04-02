@@ -68,3 +68,13 @@ export function insertCss( code ) {
     }
     document.getElementsByTagName("head")[0].appendChild( style );
 }
+
+/**
+ * Insert the newNode after the reference Node in the DOM.
+ * 
+ * @param {*} newNode 
+ * @param {*} referenceNode 
+ */
+export function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
