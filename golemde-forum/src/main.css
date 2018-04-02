@@ -1,5 +1,7 @@
 .post-hover-class {
     display: none;
+    background-color: rgb(255, 249, 214);
+    padding: 10px 20px;
 }
 
 .post-hover-class a {
@@ -8,12 +10,10 @@
 
 li:hover+.post-hover-class {
     display: block;
-    padding: 10px 20px;
 }
 
 .post-hover-class:hover {
     display: block;
-    padding: 10px 20px;
 }
 
 .link-class:hover {

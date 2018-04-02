@@ -195,8 +195,11 @@ function applyDepthAndAddActionBar(){
       actionBar.innerHTML=links.innerHTML;
       actionBar.classList.add('links');
       actionBar.classList.add('post-hover-class');
-      actionBar.style.cssText=liItems[i].style.cssText;
-      actionBar.style.backgroundColor='rgb(255, 249, 214)';
+      actionBar.style.marginLeft = liItems[i].style.marginLeft;
+      actionBar.style.borderLeftWidth = liItems[i].style.borderLeftWidth;
+      actionBar.style.borderLeftStyle = liItems[i].style.borderLeftStyle;
+      actionBar.style.borderLeftColor = liItems[i].style.borderLeftColor;
+
       links.parentNode.removeChild(links);
 
       //jump to parent
@@ -208,7 +211,7 @@ function applyDepthAndAddActionBar(){
       toParentBtn.classList.add('link-class');
       actionBar.appendChild(toParentBtn);
 
-      insertAfter(actionBar, liItems[i]);
+      Utils.insertAfter(actionBar, liItems[i]);
     }else{
       //there are no links. Probably not logged in.
       //actionBar.style.backgroundColor='rgb(255, 0, 0)';
@@ -229,7 +232,6 @@ function requestThreadAsView(view,listener){
 
   //TODO this functionality sucks -.- it seems you can access the anon read pages as logged in user. in those cases, this won't work.
 
-  LOG('entered requestThreadAsView');
   var requestURL = '';
   var url = window.location.href;
   if(url.indexOf('read.php') != -1){
@@ -315,9 +317,6 @@ function requestDepthsFromThreadViewListener () {
   requestThreadAsView(3); //reset view to correct mode
 }
 
-function insertAfter(newNode, referenceNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
 
 function jumpToParent(){
   var li = this.parentElement.parentElement;
