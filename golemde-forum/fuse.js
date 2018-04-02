@@ -1,5 +1,5 @@
 const { src, task, exec, context } = require("fuse-box/sparky");
-const { FuseBox, QuantumPlugin, WebIndexPlugin } = require("fuse-box");
+const { FuseBox, QuantumPlugin, CSSPlugin, WebIndexPlugin } = require("fuse-box");
 const concat = require('concat-files');
 
 context(
@@ -7,11 +7,12 @@ context(
   getConfig() {
     return FuseBox.init({
         homeDir : "src",
-        target : 'browser@es5',
+        target : 'browser@es6',
         output : "dist/$name.js", //output : isProduction ? "../$name.js" : "dist/$name.js",
         plugins : [
-            WebIndexPlugin(),
-            this.isProduction && QuantumPlugin()
+          CSSPlugin(),
+          WebIndexPlugin(),
+          this.isProduction && QuantumPlugin()
         ]
     });
   }
