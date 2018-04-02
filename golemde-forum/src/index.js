@@ -1,9 +1,14 @@
 'use strict';
 import * as Utils from './utils.js'
+import * as Quote from './quote.js'
 require('./main.css')
 
 var LOG = process.env.NODE_ENV === 'development' ? console.log.bind(console) : function () {};
 
+//use this to configure stuff. also build a menu around it to let the user config stuff. and store it somehow
+var Config = {
+  quoteMarkupEnabled : false
+}
 
 /*
 TODO
@@ -148,9 +153,11 @@ if(correctViewmode){
     requestThreadAsView(1,function(){
       requestDepthsFromThreadViewListener.call(this);
       applyDepthAndAddActionBar();
+      Config.quoteMarkupEnabled && Quote.processQuotes();
     });
   }else {
    applyDepthAndAddActionBar();
+   Config.quoteMarkupEnabled && Quote.processQuotes();
   }
 
 
