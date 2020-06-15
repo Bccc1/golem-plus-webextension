@@ -44,3 +44,5 @@ Dann wird das erstellte Posting in das DOM gepackt ohne die Seite neu zu laden. 
 TODO
  setup automation for releasing. maybe in release/x branches automatically build the project, copy the result to the right place, commit and push it.
  maybe even some automatic versioning and tagging
+
+ test
