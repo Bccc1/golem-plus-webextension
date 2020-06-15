@@ -32,3 +32,15 @@ Post klicken
 im hintergrund wird die url vom antworten knopf geladen, form#post-form gesucht, text in div#post-body > fieldset > span.inputTextarea > textarea#body  eingefügt, input#post-finish "geklickt".
 
 Dann wird das erstellte Posting in das DOM gepackt ohne die Seite neu zu laden. Optional wird das Ergebnis des post ausgewertet und im fehlerfall angezeigt.
+
+
+
+## Automation
+- jeder push auf github löst den webhook nach https://openuserjs.org/github/hook aus
+- openuserjs reagiert nur auf branch master (glaube ich)
+- Das mapping welche datei aus dem repo gezogen werden soll passiert beim importieren der datei aus github. Keine Ahnung ob das geändert werden kann.
+- https://openuserjs.org/scripts/Bccc1/Golem.de_Forum+ ist gemapped auf https://github.com/Bccc1/golem-plus-webextension/blob/master/golemde-forum.user.js
+
+TODO
+ setup automation for releasing. maybe in release/x branches automatically build the project, copy the result to the right place, commit and push it.
+ maybe even some automatic versioning and tagging
