@@ -311,7 +311,7 @@ function requestDepthsFromThreadViewListener () {
 
 
 function jumpToParent(){
-  var li = this.parentElement.parentElement;
+  var li = this.parentElement.previousElementSibling;
   var depthOfThis = parseInt(li.getAttribute('depth'),10);
   if(depthOfThis==1) {return;} //if first post, do nothing
   var msgId = li.getElementsByClassName('head2')[0].getAttribute('id');
